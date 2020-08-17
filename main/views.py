@@ -10,6 +10,11 @@ from .forms import NewUserForm
 
 def single_slug(request,single_slug):
     
+    if single_slug == "student_section":
+        return render(request=request,
+                  template_name="main/categories.html",
+                  context={"categories":TutorialCategory.objects.all})
+    
     categories = [c.category_slug for c in TutorialCategory.objects.all()]
     if single_slug in categories:
         matching_series = TutorialSeries.objects.filter(tutorial_category__category_slug=single_slug)
@@ -23,13 +28,21 @@ def single_slug(request,single_slug):
                       context={"tutorial_series": matching_series, "part_ones": series_urls})
     tutorials = [t.tutorial_slug for t in Tutorial.objects.all()]
     if single_slug in tutorials:
-      return HttpResponse(f"{single_slug} is a Tutorial")
+      this_tutorial = Tutorial.objects.get(tutorial_slug=single_slug)
+      tutorials_from_series = Tutorial.objects.filter(tutorial_series__tutorial_series=this_tutorial.tutorial_series).order_by('tutorial_published')
+      this_tutorial_idx = list(tutorials_from_series).index(this_tutorial)
+
+      return render(request = request,
+                    template_name='main/tutorials.html',
+                    context = {"tutorial":this_tutorial,
+                                "sidebar":tutorials_from_series,
+                                "this_tut_idx": this_tutorial_idx})
 
     return HttpResponse(f"'{single_slug}' does not correspond to anything we know of!")
 
 def homepage(request):
     return render(request=request,
-                  template_name="main/categories.html",
+                  template_name="main/landingpage.html",
                   context={"categories":TutorialCategory.objects.all})
 
 def register(request):

@@ -9,16 +9,23 @@
 </head>
 
 <body>
-        
+        <br>
+        <br>
         {% include "includes/navbar.html" %}
         {% include "includes/messages.html" %}
         
         <div class="container">
                 <br>
+                
+                {% comment %} <a class="waves-effect waves-teal btn-flat">Back</a> {% endcomment %}
+                
                 {% block content %}
                 {% endblock %}
         </div>
+
+
         
         
 </body>
 <script src="{% static 'tinymce/js/prism.js' %}"></script>
+<script>M.AutoInit();</script>
