@@ -36,3 +36,30 @@ class Tutorial(models.Model):
     tutorial_slug = models.CharField(max_length=200, default=1)
     def __str__(self):
         return self.tutorial_title
+# class MyModel(models.Model): 
+  
+#     # file will be uploaded to MEDIA_ROOT / uploads 
+#     upload = models.ImageField(upload_to ='templates/assets/images/') 
+
+class Notice(models.Model):
+    notice_title = models.CharField(max_length=200)
+    notice_published = models.DateTimeField('date published')
+    notice_content = models.TextField()
+    def __str__(self):
+        return self.notice_title
+
+class downlink(models.Model):
+    downlink_title = models.CharField(max_length=200)
+    downlink_published = models.DateTimeField('date published')
+    downlink_slug = models.CharField(max_length=200,default=1)
+    def __str__(self):
+        return self.downlink_title
+
+class EducatorsData(models.Model):
+    educators_title = models.CharField( max_length=200)
+    educators_email = models.EmailField(max_length=254)
+    educators_no = models.CharField( max_length=10)
+    def __str__(self):
+        return self.educators_no
+    class Meta:
+        db_table = "educatorsData"

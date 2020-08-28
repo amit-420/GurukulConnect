@@ -1,28 +1,53 @@
 <head>
         {% load static %}
-         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+         <!-- Compiled and minified CSS 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+        <link  href="{% static 'css/materialize.css' %}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
+        <style>
+        nav{
+                background-color:#1E90FF !important;
+                font-size:24px !important;
+                }
+        
+        main{
+                background-image: url('{% static "images/openbook_bg.png" %}');
+                background-repeat: no-repeat;
+                background-attachment: fixed; 
+                background-size: 100% 100%;
+                display: flex;
+                min-height: 100vh;
+                flex-direction: column;
+        }
+        @font-face { font-family: samarkan; src: url('{% static 'fonts/SAMAN___.ttf' %}'); } 
+        
+
+        main {
+        flex: 1 0 auto;
+        }
+        </style>
 </head>
 
 <body>
-        <br>
-        <br>
+        
         {% include "includes/navbar.html" %}
         {% include "includes/messages.html" %}
-        
+
+        <main>
         <div class="container">
                 <br>
-                
-                {% comment %} <a class="waves-effect waves-teal btn-flat">Back</a> {% endcomment %}
-                
+                <br>
                 {% block content %}
                 {% endblock %}
         </div>
-
+        </main>
+        <footer>
+        {% include "includes/footer.html" %}
+        </footer>
 
         
         

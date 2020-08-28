@@ -1,6 +1,7 @@
 {% extends 'main/header.html' %}
 
 {% block content %}
+    <a href="javascript:history.go(-1)",class="waves-effect waves-teal btn-flat">Back</a>
     <br>
     <form method = "POST">
         {% csrf_token %}

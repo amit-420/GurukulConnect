@@ -1,15 +1,48 @@
+<div class="navbar-fixed">
 <nav>
-    <div class="nav-wrapper">
-        <a href="/" class="brand-logo">GuruKUL</a>
+    <div class="nav-wrapper" >
+        <a href="/" class="brand-logo" style="font-family:samarkan;font-size:40px">GURUKUL</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
-             {% if user.is_authenticated %}
-                        <li><a href="/account">{{user.username|title}}</a></li>
-                        <li><a href="/logout">Logout</a></li>
+            
+            {% if user.is_authenticated %}
+                        <li><a href="/account" style="font-size:20px">{{user.username|title}}</a></li>
+                        <li><a href="/logout" style=" font-size:20px">Logout</a></li>
             {% else %} 
-                        <li><a href="/register">Register</a></li>
-                        <li><a href="/login">Login</a></li>
+                        <li style="font-size:20px">Students</li>
+                        <li><a href="/register" style="font-size:20px">Register</a></li>
+                        <li style="font-size:20px">/</li>
+                        <li><a href="/login" style="font-size:20px">Login</a></li>
             {% endif %}
         </ul>
-        </div>
+    </div>
 </nav>
+</div>
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li><a href="#!">three</a></li>
+</ul>
+
+<div class="navbar-fixed">
+<nav class="z-depth-0">
+    <div class="nav-wrapper" >
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="/"><i class="material-icons">home</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1" style="font-size:20px">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="/mission" style="font-size:20px">Our Mission</a></li>
+            <li><a href="/team" style="font-size:20px">Team</a></li>
+            
+        </ul>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            
+            {% if user.is_authenticated %}
+                        <li><a href="/account" style="font-size:20px">{{user.username|title}}</a></li>
+                        <li><a href="/logout" style=" font-size:20px">Logout</a></li>
+            {% else %} 
+                        <li style="font-size:20px">Mentors</li>
+                        <li><a href="/login" style="font-size:20px">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+</div>

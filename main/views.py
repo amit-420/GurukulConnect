@@ -1,20 +1,22 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tutorial,TutorialCategory,TutorialSeries
+from .models import Tutorial,TutorialCategory,TutorialSeries,Notice,downlink,EducatorsData
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import NewUserForm
+from .forms import NewUserForm,DatacollectionForm
 
 # Create your views here.
 
 def single_slug(request,single_slug):
     
-    if single_slug == "student_section":
+    if single_slug == "student_section" or single_slug == "educators_section":
         return render(request=request,
-                  template_name="main/categories.html",
+                  template_name="main/"+single_slug+"/categories.html",
                   context={"categories":TutorialCategory.objects.all})
-    
+    if single_slug == "team":
+        return render(request=request,
+                template_name="main/team.html")
     categories = [c.category_slug for c in TutorialCategory.objects.all()]
     if single_slug in categories:
         matching_series = TutorialSeries.objects.filter(tutorial_category__category_slug=single_slug)
@@ -24,8 +26,9 @@ def single_slug(request,single_slug):
             part_one = Tutorial.objects.filter(tutorial_series__tutorial_series=m.tutorial_series).earliest("tutorial_published")
             series_urls[m] = part_one.tutorial_slug
         return render(request=request,
-                      template_name='main/category.html',
+                      template_name='main/student_section/category.html',
                       context={"tutorial_series": matching_series, "part_ones": series_urls})
+
     tutorials = [t.tutorial_slug for t in Tutorial.objects.all()]
     if single_slug in tutorials:
       this_tutorial = Tutorial.objects.get(tutorial_slug=single_slug)
@@ -33,7 +36,7 @@ def single_slug(request,single_slug):
       this_tutorial_idx = list(tutorials_from_series).index(this_tutorial)
 
       return render(request = request,
-                    template_name='main/tutorials.html',
+                    template_name='main/student_section/tutorials.html',
                     context = {"tutorial":this_tutorial,
                                 "sidebar":tutorials_from_series,
                                 "this_tut_idx": this_tutorial_idx})
@@ -44,6 +47,14 @@ def homepage(request):
     return render(request=request,
                   template_name="main/landingpage.html",
                   context={"categories":TutorialCategory.objects.all})
+
+def dashboard(request):
+    
+    return render( request = request,
+                    template_name ="main/educators_section/dashboard.html",
+                    context = {"notices":Notice.objects.all,
+                                "downlinks":downlink.objects.all}
+    )
 
 def register(request):
     if request.method == "POST":
@@ -89,4 +100,22 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request,
                 "main/login.html",
+                {"form":form})
+
+def EducatorsInfo(request):
+    if request.method == 'POST':
+        form = DatacollectionForm(data=request.POST)
+        if form.is_valid():
+            educators_name = form.cleaned_data.get('educators_name')
+            educators_email = form.cleaned_data.get('educators_email')
+            educators_no = form.cleaned_data.get('educators_no')
+            messages.info(request, f"We will contact you soon")
+            EducatorsData = form.save()
+        else:
+            messages.error(request, "Form is not valid")
+        return redirect("main:homepage")
+
+    form = DatacollectionForm()
+    return render(request,
+                "main/educators_section/educatorsinfo.html",
                 {"form":form})

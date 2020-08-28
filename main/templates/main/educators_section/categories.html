@@ -1,0 +1,39 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+     
+    <a href="javascript:history.go(-1)",class="waves-effect waves-blue btn-flat">Back</a>
+    <br>
+    <div class="row">
+            <div class="col s12 m6 l6">
+                <a href="educators_info", style="color:#000">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="card-image">
+                                {% load static %}
+                                <img src="{% static "images/wallpapersden.com_not-today-got_2560x1440.jpg" %}">
+                            </div>
+                            <div class="card-title">Join us</div>
+                            <!--<p style="font-size:70%">Published {{tut.tutorial_published}}</p>
+                            <p>{{cat.category_summary}}</p>-->
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col s12 m6 l6">
+                <a href="dashboard", style="color:#000">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="card-image">
+                                {% load static %}
+                                <img src="{% static "images/wallpapersden.com_not-today-got_2560x1440.jpg" %}">
+                            </div>
+                            <div class="card-title">Go to DashBoard</div>
+                            <!--<p style="font-size:70%">Published {{tut.tutorial_published}}</p>
+                            <p>{{cat.category_summary}}</p>-->
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+{% endblock %}
