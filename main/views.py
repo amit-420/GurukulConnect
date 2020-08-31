@@ -17,6 +17,9 @@ def single_slug(request,single_slug):
     if single_slug == "team":
         return render(request=request,
                 template_name="main/team.html")
+    if single_slug =="mission":
+        return render(request=request,
+                template_name="main/mission.html")
     categories = [c.category_slug for c in TutorialCategory.objects.all()]
     if single_slug in categories:
         matching_series = TutorialSeries.objects.filter(tutorial_category__category_slug=single_slug)

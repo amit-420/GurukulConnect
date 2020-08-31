@@ -29,15 +29,15 @@
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="/"><i class="material-icons">home</i></a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown1" style="font-size:20px">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a href="/mission" style="font-size:20px">Our Mission</a></li>
+            <li><a href="/mission" style="font-size:20px">About Us</a></li>
             <li><a href="/team" style="font-size:20px">Team</a></li>
             
         </ul>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             
             {% if user.is_authenticated %}
-                        <li><a href="/account" style="font-size:20px">{{user.username|title}}</a></li>
-                        <li><a href="/logout" style=" font-size:20px">Logout</a></li>
+                        {% comment %} <li><a href="/account" style="font-size:20px">{{user.username|title}}</a></li>
+                        <li><a href="/logout" style=" font-size:20px">Logout</a></li> {% endcomment %}
             {% else %} 
                         <li style="font-size:20px">Mentors</li>
                         <li><a href="/login" style="font-size:20px">Login</a></li>
