@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm,DatacollectionForm
+from .utils import *
 
 # Create your views here.
 
@@ -91,10 +92,14 @@ def login_request(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None:
+            if (user is not None) and is_student(user):
                 login(request, user)
                 messages.info(request, f"You are logged in as {username}")
                 return redirect("main:homepage")
+            elif (user is not None) and is_mentors(user):
+                login(request, user)
+                messages.info(request, f"You are logged in as {username}")
+                return redirect("main:dashboard")
             else:
                 messages.error(request, "Invalid Username or password")
         else:
